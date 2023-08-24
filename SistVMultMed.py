@@ -52,6 +52,7 @@ class Mascota:
 class sistemaV:
     def __init__(self):
         self.__lista_mascotas = []
+        self.__lista_mascotas = []
     
     def verificarExiste(self,historia):
         for m in self.__lista_mascotas:
@@ -87,6 +88,7 @@ class sistemaV:
                 self.__lista_mascotas.remove(masc)  #opcion con el pop
                 return True  #eliminado con exito
         return False 
+    
 
 def main():
     servicio_hospitalario = sistemaV()
@@ -112,6 +114,7 @@ def main():
                 peso=int(input("Ingrese el peso de la mascota: "))
                 fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
                 nm=int(input("Ingrese cantidad de medicamentos: "))
+
                 lista_med=[]
 
                 for i in range(0,nm):
@@ -120,7 +123,14 @@ def main():
                     medicamento = Medicamento()
                     medicamento.asignarNombre(nombre_medicamentos)
                     medicamento.asignarDosis(dosis)
+                    for m in lista_med:
+                        while nombre_medicamentos in lista_med == True:
+                            print("Este medicamento ya se encuentra registrado, por favor ingrese uno nuevo")
+                            nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
+                            medicamento.asignarNombre(nombre_medicamentos)
+
                     lista_med.append(medicamento)
+                        
 
                 mas= Mascota()
                 mas.asignarNombre(nombre)
