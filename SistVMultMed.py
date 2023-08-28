@@ -116,19 +116,19 @@ def main():
                 nm=int(input("Ingrese cantidad de medicamentos: "))
 
                 lista_med=[]
-
+                lista_med2=[]
                 for i in range(0,nm):
                     nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
                     dosis =int(input("Ingrese la dosis: "))
+                    for p in lista_med2: 
+
+                        if nombre_medicamentos == p:
+                            print("Este medicamento ya se encuentra registrado, por favor ingrese uno nuevo")
+                            nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
+                    lista_med2.append(nombre_medicamentos)       
                     medicamento = Medicamento()
                     medicamento.asignarNombre(nombre_medicamentos)
                     medicamento.asignarDosis(dosis)
-                    for m in lista_med:
-                        while nombre_medicamentos in lista_med == True:
-                            print("Este medicamento ya se encuentra registrado, por favor ingrese uno nuevo")
-                            nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
-                            medicamento.asignarNombre(nombre_medicamentos)
-
                     lista_med.append(medicamento)
                         
 
