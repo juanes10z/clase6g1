@@ -51,43 +51,80 @@ class Mascota:
     
 class sistemaV:
     def __init__(self):
-        self.__lista_mascotas = []
-        self.__lista_mascotas = []
+
+        self.__lista_caninos = []
+        self.__lista_felinos = []
     
-    def verificarExiste(self,historia):
-        for m in self.__lista_mascotas:
-            if historia == m.verHistoria():
-                return True
+    def verificarExiste(self,historia,tipo):
+        if tipo == 1:
+            for m in self.__lista_felinos:            
+                if historia == m.verHistoria():
+                    return True
+        if tipo == 2:
+            for m in self.__lista_caninos:            
+                if historia == m.verHistoria():
+                    return True
+                
         #solo luego de haber recorrido todo el ciclo se retorna False
         return False
         
-    def verNumeroMascotas(self):
-        return len(self.__lista_mascotas) 
+    def verNumeroMascotas(self,tipo):
+        if tipo == 1:
+            return  len(self.__lista_caninos)
+
+        if tipo == 2:    
+            return len(self.__lista_felinos)
     
-    def ingresarMascota(self,mascota):
-        self.__lista_mascotas.append(mascota) 
+    def ingresarMascota(self,mascota,tipo):
+
+        if tipo == 1:
+            self.__lista_felinos.append(mascota) 
+        if tipo == 2:
+            self.__lista_caninos.append(mascota)
    
 
-    def verFechaIngreso(self,historia):
+    def verFechaIngreso(self,historia,tipo):
         #busco la mascota y devuelvo el atributo solicitado
-        for masc in self.__lista_mascotas:
-            if historia == masc.verHistoria():
-                return masc.verFecha() 
-        return None
+        if tipo == 1:
+            for masc in self.__lista_felinos:
+                if historia == masc.verHistoria():
+                    return masc.verFecha() 
+            return None
+        
+        if tipo == 2:
+            for masc in self.__lista_caninos:
+                if historia == masc.verHistoria():
+                    return masc.verFecha() 
+            return None
 
-    def verMedicamento(self,historia):
+    def verMedicamento(self,historia,tipo):
         #busco la mascota y devuelvo el atributo solicitado
-        for masc in self.__lista_mascotas:
-            if historia == masc.verHistoria():
-                return masc.verLista_Medicamentos() 
-        return None
+        if tipo == 1:
+            for masc in self.__lista_felinos:
+                if historia == masc.verHistoria():
+                    return masc.verLista_Medicamentos() 
+            return None
+        
+        if tipo == 2:
+            for masc in self.__lista_caninos:
+                if historia == masc.verHistoria():
+                    return masc.verLista_Medicamentos() 
+            return None
     
-    def eliminarMascota(self, historia):
-        for masc in self.__lista_mascotas:
-            if historia == masc.verHistoria():
-                self.__lista_mascotas.remove(masc)  #opcion con el pop
-                return True  #eliminado con exito
-        return False 
+    def eliminarMascota(self, historia,tipo):
+        if tipo == 1:
+            for masc in self.__lista_felinos:
+                if historia == masc.verHistoria():
+                    self.__lista_felinos.remove(masc)  #opcion con el pop
+                    return True  #eliminado con exito
+            return False 
+        
+        if tipo == 2:
+            for masc in self.__lista_caninos:
+                if historia == masc.verHistoria():
+                    self.__lista_caninos.remove(masc)  #opcion con el pop
+                    return True  #eliminado con exito
+            return False 
     
 
 def main():
@@ -103,14 +140,25 @@ def main():
                        \n6- Salir 
                        \nUsted ingresó la opción: ''' ))
         if menu==1: # Ingresar una mascota 
-            if servicio_hospitalario.verNumeroMascotas() >= 10:
+
+            while True:
+                    try:
+                        tipo=int(input("Ingrese el tipo de mascota \n\n1. felino \n2. canino \n"))
+                        while tipo !=1 and tipo != 2:
+                                print("la variable ingresada no es valida, por favor ingrese nuevamente")
+                                int(tipo=input("Ingrese el tipo de mascota (felino o canino): "))
+                        break  
+                    except:
+                        print("PARAMETRO INVALIDO")
+
+            if servicio_hospitalario.verNumeroMascotas(tipo) >= 10:
                 print("No hay espacio ...") 
                 continue
             historia=int(input("Ingrese la historia clínica de la mascota: "))
             #   verificacion=servicio_hospitalario.verDatosPaciente(historia)
-            if servicio_hospitalario.verificarExiste(historia) == False:
+            if servicio_hospitalario.verificarExiste(historia,tipo) == False:
                 nombre=input("Ingrese el nombre de la mascota: ")
-                tipo=input("Ingrese el tipo de mascota (felino o canino): ")
+
                 peso=int(input("Ingrese el peso de la mascota: "))
                 fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
                 nm=int(input("Ingrese cantidad de medicamentos: "))
@@ -139,14 +187,24 @@ def main():
                 mas.asignarTipo(tipo)
                 mas.asignarFecha(fecha)
                 mas.asignarLista_Medicamentos(lista_med)
-                servicio_hospitalario.ingresarMascota(mas)
+                servicio_hospitalario.ingresarMascota(mas,tipo)
 
             else:
                 print("Ya existe la mascota con el numero de histoira clinica")
 
         elif menu==2: # Ver fecha de ingreso
             q = int(input("Ingrese la historia clínica de la mascota: "))
-            fecha = servicio_hospitalario.verFechaIngreso(q)
+            while True:
+                    try:
+                        tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
+                        while tipo !=1 and tipo != 2:
+                                print("la variable ingresada no es valida, por favor ingrese nuevamente")
+                                int(tipo=input("Ingrese el tipo de mascota (felino o canino): "))
+                        break  
+                    except:
+                        print("PARAMETRO INVALIDO")
+
+            fecha = servicio_hospitalario.verFechaIngreso(q,tipo)
             # if servicio_hospitalario.verificarExiste == True
             if fecha != None:
                 print("La fecha de ingreso de la mascota es: " + fecha)
@@ -154,12 +212,30 @@ def main():
                 print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
             
         elif menu==3: # Ver número de mascotas en el servicio 
-            numero=servicio_hospitalario.verNumeroMascotas()
-            print("El número de pacientes en el sistema es: " + str(numero))
+            while True:
+                    try:
+                        tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
+                        while tipo !=1 and tipo != 2:
+                                print("la variable ingresada no es valida, por favor ingrese nuevamente")
+                                int(tipo=input("Ingrese el tipo de mascota (felino o canino): "))
+                        break  
+                    except:
+                        print("PARAMETRO INVALIDO")
+            numero=servicio_hospitalario.verNumeroMascotas(tipo)
+            print("El número de pacientes en el sistema son: " + str(numero))
 
         elif menu==4: # Ver medicamentos que se están administrando
             q = int(input("Ingrese la historia clínica de la mascota: "))
-            medicamento = servicio_hospitalario.verMedicamento(q) 
+            while True:
+                    try:
+                        tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
+                        while tipo !=1 and tipo != 2:
+                                print("la variable ingresada no es valida, por favor ingrese nuevamente")
+                                int(tipo=input("Ingrese el tipo de mascota (felino o canino): "))
+                        break  
+                    except:
+                        print("PARAMETRO INVALIDO")
+            medicamento = servicio_hospitalario.verMedicamento(q,tipo) 
             if medicamento != None: 
                 print("Los medicamentos suministrados son: ")
                 for m in medicamento:   
@@ -170,7 +246,16 @@ def main():
         
         elif menu == 5: # Eliminar mascota
             q = int(input("Ingrese la historia clínica de la mascota: "))
-            resultado_operacion = servicio_hospitalario.eliminarMascota(q) 
+            while True:
+                    try:
+                        tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
+                        while tipo !=1 and tipo != 2:
+                                print("la variable ingresada no es valida, por favor ingrese nuevamente")
+                                int(tipo=input("Ingrese el tipo de mascota (felino o canino): "))
+                        break  
+                    except:
+                        print("PARAMETRO INVALIDO")
+            resultado_operacion = servicio_hospitalario.eliminarMascota(q,tipo) 
             if resultado_operacion == True:
                 print("Mascota eliminada del sistema con exito")
             else:
