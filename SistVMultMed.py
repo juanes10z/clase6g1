@@ -154,14 +154,29 @@ def main():
             if servicio_hospitalario.verNumeroMascotas(tipo) >= 10:
                 print("No hay espacio ...") 
                 continue
-            historia=int(input("Ingrese la historia clínica de la mascota: "))
+            while True:
+                try:    
+                    historia=int(input("Ingrese la historia clínica de la mascota: "))
+                    break
+                except:
+                    print("Parametro invalido, el parametro debe ser de tipo numerico")
             #   verificacion=servicio_hospitalario.verDatosPaciente(historia)
             if servicio_hospitalario.verificarExiste(historia,tipo) == False:
                 nombre=input("Ingrese el nombre de la mascota: ")
-
-                peso=int(input("Ingrese el peso de la mascota: "))
+                while True:
+                    try:
+                        peso=int(input("Ingrese el peso de la mascota: "))
+                        break
+                    except:
+                        print("Parametro invalido, el parametro debe ser de tipo numerico")
                 fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
-                nm=int(input("Ingrese cantidad de medicamentos: "))
+
+                while True:
+                    try:
+                        nm=int(input("Ingrese cantidad de medicamentos: "))
+                        break
+                    except:
+                        print("Parametro invalido, el parametro debe ser de tipo numerico")
 
                 lista_med=[]
                 lista_med2=[]
@@ -193,7 +208,12 @@ def main():
                 print("Ya existe la mascota con el numero de histoira clinica")
 
         elif menu==2: # Ver fecha de ingreso
-            q = int(input("Ingrese la historia clínica de la mascota: "))
+            while True:
+                try:    
+                    q=int(input("Ingrese la historia clínica de la mascota: "))
+                    break
+                except:
+                    print("Parametro invalido, el parametro debe ser de tipo numerico")
             while True:
                     try:
                         tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
@@ -225,7 +245,12 @@ def main():
             print("El número de pacientes en el sistema son: " + str(numero))
 
         elif menu==4: # Ver medicamentos que se están administrando
-            q = int(input("Ingrese la historia clínica de la mascota: "))
+            while True:
+                try:    
+                    q=int(input("Ingrese la historia clínica de la mascota: "))
+                    break
+                except:
+                    print("Parametro invalido, el parametro debe ser de tipo numerico")
             while True:
                     try:
                         tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
@@ -245,7 +270,12 @@ def main():
 
         
         elif menu == 5: # Eliminar mascota
-            q = int(input("Ingrese la historia clínica de la mascota: "))
+            while True:
+                try:    
+                    q=int(input("Ingrese la historia clínica de la mascota: "))
+                    break
+                except:
+                    print("Parametro invalido, el parametro debe ser de tipo numerico")
             while True:
                     try:
                         tipo=int(input("Ingrese el tipo de mascota \n\n 1. felino \n2. canino \n"))
